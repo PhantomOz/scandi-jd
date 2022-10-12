@@ -1,11 +1,18 @@
 import React from "react";
 
-const DvdForm = () => {
+const DvdForm = ({ size, change }) => {
   return (
     <div>
       <div className="input">
         <label htmlFor="size">Size (MB)</label>
-        <input type="text" name="size" id="size" />
+        <input
+          type="number"
+          name="size"
+          id="size"
+          value={size}
+          onChange={change}
+          required
+        />
       </div>
       <p className="desc">“Please, provide size”</p>
     </div>
