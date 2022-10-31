@@ -5,7 +5,6 @@ import DvdForm from "../components/forms/DvdForm";
 import FurnitureForm from "../components/forms/FurnitureForm";
 import BookForm from "../components/forms/BookForm";
 import "./AddProduct.scss";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
@@ -31,22 +30,29 @@ const AddProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("trying to submit form");
+    console.log("trying to submit form", JSON.stringify(formValues).length);
+
     const addProduct = async () => {
-      try {
-        const res = await axios({
-          url: "https://innoxious-extension.000webhostapp.com/productapi/api/addProduct.php",
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: { ...formValues },
-        });
-        console.log(res.data);
-        navigate("/");
-      } catch (error) {
-        console.log(error);
-      }
+      const url =
+        "https://innoxious-extension.000webhostapp.com/productapi/api/addProduct.php";
+      await fetch(url, {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+          "Content-Length": `${JSON.stringify(formValues).length}`,
+          Accept: "*/*",
+          "Accept-Encoding": `deflate, gzip, br`,
+        },
+        body: JSON.stringify(formValues),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          navigate("/");
+        })
+        .catch((err) => console.log(err));
     };
     addProduct();
   };

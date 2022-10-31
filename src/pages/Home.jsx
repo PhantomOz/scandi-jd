@@ -15,6 +15,7 @@ const Home = () => {
         const res = await axios.get(
           "https://innoxious-extension.000webhostapp.com/productapi/api/getProduct.php"
         );
+        console.log(res);
         setProducts(res.data.data);
       } catch (error) {
         console.log(error);
