@@ -28,7 +28,7 @@ const ProductCard = ({ product, sSelected, selected }) => {
       <div className="info">
         <p id="sku">{product?.sku}</p>
         <p className="name">{product?.name}</p>
-        <p id="price">{parseInt(product?.price).toFixed(2)} $</p>
+        <p id="price">{parseInt(product?.price)?.toFixed(2)} $</p>
         {product?.type === "DVD" && <p id="size">Size: {product?.size} MB</p>}
         {product?.type === "book" && (
           <p id="weight">Weight: {product?.weight}KG</p>
